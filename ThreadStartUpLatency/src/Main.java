@@ -3,7 +3,7 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
         final int WARMUP = 5000;
-        final int N = 10000;
+        final int N = 50000;
 
         long[] extTimes = new long[N];
         long[] runTimes = new long[N];
@@ -26,11 +26,9 @@ public class Main {
             }
         }
 
-        System.out.println("Average time for Extending Thread: " + averageTime(extTimes));
-        System.out.println("Average time for Implementing Runnable: " + averageTime(runTimes));
-        System.out.println("----------------------------------");
-        System.out.println("Median for Extending Thread: " + findMedian(extTimes));
-        System.out.println("Median for Implementing Runnable: " + findMedian(runTimes));
+
+        FileIO.write("median.csv",N,findMedian(extTimes),findMedian(runTimes));
+
     }
 
     public static long measureExt() throws InterruptedException {
