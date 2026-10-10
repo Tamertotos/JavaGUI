@@ -3,26 +3,22 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
 
 public class FileIO {
+    private static final String HEADER = "N,Thread,Runnable";
+
     public static void write(String path, double n, double thread, double runnable){
 
-        List<Double> rows = new ArrayList<Double>();
-        rows.add(n);
-        rows.add(thread);
-        rows.add(runnable);
-
-        boolean isNew = Files.notExists(Path.of(path));
+        Path file = Path.of(path);
+        boolean isNew = Files.notExists(file);
 
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(path,true));
             if (isNew){
-                writer.write("N,Thread,Runnable");
+                writer.write(HEADER);
             }
             writer.newLine();
-            writer.write(rows.get(0) + "," + rows.get(1) + "," + rows.get(2));
+            writer.write(n + "," + thread + "," + runnable);
             writer.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
